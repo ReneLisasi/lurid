@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lurid</title>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <link rel ="stylesheet" href="{{ url_for('static',filename='css/style.css') }}">
+</head>
+<body>
+    <!-- nav bar -->
+    <nav>
+        <ul class="nav-ul">
+            <a href="{{ url_for('index')}}"><img class="nav-logo" src="{{ url_for('static', filename='res/lurid_logo_w_3d.png') }}"> </a> </li>
+            <li><a href="{{ url_for('talk') }}">Talking</a></li>
+        </ul>
+    </nav>
+
+    <div class="main-body">
+        <div class="flex-container">
+            <div class="row">
+                <div class="col">
+                    What's stressing you out?
+                </div>
+                <div class="col">
+                    List
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <form action="/send_message" method="post">
+                        <textarea>Express how you feel</textarea>
+                    </br>
+                        <input type="submit" value="Send">
+                    </form>
+                    
+                </div>
+                <div class="col">
+                    <ul>
+                        <li>Stressor 1 <progress></progress></li>
+                        <li>Stressor 2 <progress></progress></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</body>
+</html>
