@@ -1,0 +1,4 @@
+# ignore environment set up
+env/
+venv/
+__pycache__/

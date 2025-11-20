@@ -1,7 +1,18 @@
-from flask import Flask, render_template
-# from slm import infer,init_model
+#from urllib import request
+from flask import Flask, render_template, request
+from slm import infer,init_model
+import os
+
 
 app=Flask(__name__)
+generator=init_model()
+
+PROMPT_TEMPLATE_PATH = os.path.join(
+    app.root_path,
+    "static",
+    "prompts",
+    "lurid_prompt_template1.md"
+)
 
 @app.route('/')
 def index():
@@ -11,13 +22,20 @@ def index():
 def talk():
     return render_template('talk.html',message=None)
 
-# @app.route('send_message')
-# def send_message(message,prompt_template_path):
-#     #infer here
-#     generator='text'
-#     inference=infer(message,generator,prompt_template_path)
-#     return render_template('talk',message=inference)
+@app.route('/send_message', methods=["POST"])
+def send_message():
+    print("dfs")
+
+    user_message = request.form.get("user_message", "")
+    
+    #infer here
+    #generator='text'
+    if not user_message.strip():
+        return render_template("talk.html", message="Please enter a message.", stressors=[])
+
+    response_text, stressors = infer(user_message, generator, PROMPT_TEMPLATE_PATH)
+    return render_template("talk.html", response_text=response_text, stressors=stressors)
+
 
 if __name__=='__main__':
-    # generator=init_model()
     app.run(debug=True)

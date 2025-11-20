@@ -28,19 +28,36 @@
             </div>
             <div class="row">
                 <div class="col">
-                    <form action="/send_message" method="post">
-                        <textarea>Express how you feel</textarea>
+                    <form action="{{ url_for('send_message') }}" method="post">
+                        <textarea name="user_message" placeholder="Express how you feel"></textarea>
                     </br>
                         <input type="submit" value="Send">
                     </form>
+
+
+                    
                     
                 </div>
                 <div class="col">
                     <ul>
-                        <li>Stressor 1 <progress></progress></li>
-                        <li>Stressor 2 <progress></progress></li>
+                        {% if stressors %}
+                            {% for s in stressors %}
+                                <li>
+                                    {{ s.name }}
+                                    <progress max="100" value="{{ s.progress }}"></progress>
+                                </li>
+                            {% endfor %}
+                        {% else %}
+                            <li>No stressors yet.</li>
+                        {% endif %}
                     </ul>
-                </div>
+                </div>                
+            </div>
+            <div>
+                {% if response_text %}
+                    <h3>Response</h3>
+                    <pre>{{ response_text }}</pre>
+                {% endif %}
             </div>
         </div>
         
