@@ -1,4 +1,5 @@
 from transformers import pipeline
+
 import re
 import json
 from transformers import StoppingCriteria, StoppingCriteriaList
@@ -25,7 +26,7 @@ def read_file(filepath):
             return content
     except FileNotFoundError:
         return 'Error: File not found'
-    
+
 class StopWhenJSONComplete(StoppingCriteria):
     def __init__(self, tokenizer, prompt_token_count: int):
         self.tokenizer = tokenizer

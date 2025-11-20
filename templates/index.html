@@ -8,16 +8,13 @@
     <link rel ="stylesheet" href="{{ url_for('static',filename='css/style.css') }}">
 </head>
 <body>
-    <!-- nav bar -->
-    <nav>
-        <ul class="nav-ul">
-            <a href="{{ url_for('index')}}"><img class="nav-logo" src="{{ url_for('static', filename='res/lurid_logo_w_3d.png') }}"> </a> </li>
-            <li><a href="{{ url_for('talk') }}">Talk</a></li>
-        </ul>
-    </nav>
-    <!-- splash -->
-    <div>
-        
+    <div class="hero">
+        <div class="clouds"></div>
+        <div class="hero-content">
+            <img class="hero-logo" src="{{ url_for('static', filename='res/lurid_logo_w_3d.png') }}">
+            <p class="tagline">A soft space to unpack what’s on your mind.</p>
+            <a href="{{ url_for('talk') }}" class="cta-btn">Let’s start talking</a>
+        </div>
     </div>
 </body>
 </html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Emotional Breakdown</title>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <!-- header for the results page -->
+    <header class="talk-header">
+        <div class="talk-status">
+            Here’s what we found from your message.
+        </div>
+    </header>
+
+    <main class="result-main">
+        <section class="glass-card result-card">
+
+            <!-- your bar graph -->
+            <canvas id="resultsChart" width="400" height="300"></canvas>
+
+            <!-- explanation text -->
+            <p class="analysis-text">
+                {{ analysis_text }}
+            </p>
+
+            <!-- back button -->
+            <a href="{{ url_for('talk') }}" class="back-btn">Back to writing</a>
+
+        </section>
+    </main>
+</body>
+</html>

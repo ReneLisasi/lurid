@@ -3,64 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>lurid</title>
+    <title>lurid – Talking</title>
+    <!--Have to add pie chart here -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
-    <link rel ="stylesheet" href="{{ url_for('static',filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
-<body>
-    <!-- nav bar -->
-    <nav>
-        <ul class="nav-ul">
-            <a href="{{ url_for('index')}}"><img class="nav-logo" src="{{ url_for('static', filename='res/lurid_logo_w_3d.png') }}"> </a> </li>
-            <li><a href="{{ url_for('talk') }}">Talking</a></li>
-        </ul>
-    </nav>
 
-    <div class="main-body">
-        <div class="flex-container">
-            <div class="row">
-                <div class="col">
-                    What's stressing you out?
-                </div>
-                <div class="col">
-                    List
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <form action="{{ url_for('send_message') }}" method="post">
-                        <textarea name="user_message" placeholder="Express how you feel"></textarea>
-                    </br>
-                        <input type="submit" value="Send">
-                    </form>
-
-
-                    
-                    
-                </div>
-                <div class="col">
-                    <ul>
-                        {% if stressors %}
-                            {% for s in stressors %}
-                                <li>
-                                    {{ s.name }}
-                                    <progress max="100" value="{{ s.progress }}"></progress>
-                                </li>
-                            {% endfor %}
-                        {% else %}
-                            <li>No stressors yet.</li>
-                        {% endif %}
-                    </ul>
-                </div>                
-            </div>
-            <div>
-                {% if response_text %}
-                    <h3>Response</h3>
-                    <pre>{{ response_text }}</pre>
-                {% endif %}
-            </div>
-        </div>
-        
+<body class="talk-body">
+    <!-- ZEN BACKGROUND SLIDESHOW -->
+    <div class="zen-slideshow">
+        <div class="zen-image img1"></div>
+        <div class="zen-image img2"></div>
+        <div class="zen-image img3"></div>
+        <div class="zen-image img4"></div>
+        <div class="zen-image img5"></div>
     </div>
+
+    <!-- SINGLE top header -->
+    <header class="talk-header">
+        <div class="talk-status">
+            You’re talking to Lurid right now.
+        </div>
+    </header>
+
+    <!-- floating big quote bubble near bottom -->
+    <div class="talk-quote-bottom">
+        <span id="quote-text">“I wish you saw yourself, the way I see you.”</span>
+    </div>
+
+    <!-- main content -->
+    <main class="talk-main">
+        <!-- LEFT: journaling card -->
+        <section class="glass-card journal-card">
+            <h1>What’s on your mind today?</h1>
+            <form action="{{ url_for('send_message') }}" method="post" class="journal-form">
+                <textarea name="message" placeholder="How do you feel today.."></textarea>
+                <div class="form-footer">
+                    <button type="submit" class="primary-btn">Send</button>
+                </div>
+            </form>
+        </section>
+
+        <!-- RIGHT: stressor list + pie chart -->
+        <section class="glass-card stressor-card {% if not show_stressors %}hidden-stressors{% endif %}">
+            <h2>Your current stressors</h2>
+            <p class="subtext">We’ll keep track of where your energy is going.</p>
+
+            <ul class="stressor-list">
+                <li>
+                    <span>Stressor 1</span>
+                    <progress value="60" max="100"></progress>
+                </li>
+                <li>
+                    <span>Stressor 2</span>
+                    <progress value="40" max="100"></progress>
+                </li>
+            </ul>
+
+            <div class="chart-wrapper">
+                <canvas id="stressPie"></canvas>
+            </div>
+            <p class="chart-caption">
+                Each slice shows how much space each stressor is taking up right now.
+            </p>
+        </section>
+    </main>
 </body>
 </html>

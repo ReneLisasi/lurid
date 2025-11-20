@@ -1,94 +1,535 @@
 /* global*/
 body{
+  font-family: Roboto, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
   font-family: Roboto;
   margin:0;
   color:#a87b9e;
   text-align: center;
   align-items: center;
 }
-nav {
-    background-image: url('/static/res/pexels-mo-eid-11643390.jpg'); /* Path to your image */
-    /* background:#ffcda2ec; */
-    list-style-type: none;
-    text-decoration: none;
-    text-align: center;
-    padding:1%;
-    background-repeat: no-repeat;
-    background-position: 50% 70%;
-    background-size: 100% auto;
-}
+.hero {
+  position: relative;
+  overflow: hidden;
 
-nav a{
-  border-radius: 5px;
-  /* background:#fadec5ec; */
-  color:#a87b9e;
-}
+  min-height: 100vh;
 
-nav img{
-  height: 50%;
-  width:50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
+
+  background: radial-gradient(circle at top, #e7c6ff 0, #f7e9ff 40%, #fdfbff 100%);
 }
 
-nav ul {
-  list-style-type: inherit;
+.clouds {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 200%;
+  background: url('/static/res/iccup-xNtwmcRP-gw-unsplash.jpg') repeat;
+  background-size: cover;
+  opacity: 0.5;                 
+  animation: moveClouds 50s linear infinite;
+  z-index: 1;
+}
+
+@keyframes moveClouds {
+  0% { transform: translateX(0) translateY(0); }
+  100% { transform: translateX(-25%) translateY(-10%); }
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+}
+
+.hero-logo{
+  max-width: 600px;
+  width: 80%;
+  height: auto;
+  margin-bottom: 2rem;
+}
+
+.tagline {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #b382b6;      
+  letter-spacing: 0.01em;
+  margin-bottom: 0.8rem;
+}
+
+.cta-btn {
+  display: inline-block;
+  margin-top: 0.5rem;
+  padding: 0.9rem 2.4rem;
+  border-radius: 999px;
+
+  background: rgba(222, 155, 204, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 0.03em;
+  text-decoration: none;
+
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.28);
+
+  transition: 0.25s ease;
+}
+
+.cta-btn:hover {
+  background: #ffd7f7;
+  color: #a45493;
+  transform: translateY(-2px) scale(1.02);
+}
+
+
+nav {
+  width: 100%;
+  padding: 0.8rem 2rem;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-sizing: border-box;
+}
+
+nav a {
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: white;  
+    background: rgba(168, 123, 158, 0.6); 
+    border-radius: 8px;
+    transition: 0.3s ease;
+}
+
+.nav-ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  justify-content: center;
+}
+
+.nav-logo {
+  height: 40px;
+  width: auto;
 }
 
 nav ul li {
-  list-style-type: inherit;
+  list-style: none;
 }
 
-a {
+nav a {
   text-decoration: none;
-  color: inherit;
+  color: #a87b9e;
+  font-weight: 600;
+  font-size: 0.95rem;
 }
 
-textarea{
-  width: 80%;
+.nav-active {
+  background: rgba(222, 155, 204, 0.3);
+  border: 1px solid rgba(222, 155, 204, 0.7);
+}
+
+
+/* ===========================
+   TALK PAGE LAYOUT (/talk)
+   =========================== */
+
+.talk-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 0.8rem 1.5rem;
+    z-index: 20;
+    pointer-events: none; 
+}
+
+.talk-header-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0.7rem 2rem;
+  box-sizing: border-box;
+
+  display: flex;
+  justify-content: space-between;  /* LEFT + RIGHT */
+  align-items: center;
+  gap: 10rem;
+}
+
+.talk-status {
+    color: #b178b5;
+    font-size: 0.9rem;
+    font-weight: 500;
+    pointer-events: auto;
+}
+
+
+.talk-quote-bottom {
+    position: fixed;
+    bottom: 3rem;
+    left: 50%;
+    transform: translateX(-50%);
+
+    padding: 1rem 2rem;
+    border-radius: 45px;
+
+    font-size: 1rem;
+    color: #6a4c7c;
+
+    background: rgba(255, 255, 255, 0.55);
+    backdrop-filter: blur(18px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+
+    max-width: 70%;
+    text-align: center;
+    z-index: 20;
+}
+
+
+
+@keyframes fadeFloat {
+    0%   { transform: translate(-50%, 0); opacity: .6; }
+    50%  { transform: translate(-50%, -6px); opacity: 1; }
+    100% { transform: translate(-50%, 0); opacity: .6; }
+}
+
+#quote-text {
+  transition: opacity 0.6s ease;
+}
+
+/* Mobile: stack text + quote vertically */
+@media (max-width: 700px) {
+  .talk-header-inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .talk-quote-bubble {
+    max-width: 100%;
+  }
+}
+
+/* Ensure main content sits BELOW the fixed header */
+.talk-main {
+  max-width: 1100px;
+  margin: 6rem auto 3rem;  
+  padding: 0 2rem;
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+  box-sizing: border-box;
+}
+
+/* hide stressors until after Send */
+.hidden-stressors {
+  display: none;
+}
+
+/* ===========================================
+   ZEN SLIDESHOW BACKGROUND (4 IMAGES)
+   =========================================== */
+
+.zen-slideshow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
   height: 100%;
-  margin:1%;
+  overflow: hidden;
+  z-index: -1;                 /* behind nav + cards */
 }
 
-.main-body{
-  margin:5%;
-  text-align: inherit;
-  align-items: inherit;
-  display: flex;
-}
-
-.flex-container{
-  justify-content: center;
+.zen-image {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  animation: fadeZen 60s infinite ease-in-out;  
+  filter: brightness(0.8) blur(1px);        
 }
 
-.row{
-  display: flex;
-  flex-direction: row;
-  width: 100%;
+/* One full animation is 200s.
+   Each slide "owns" 50s of that:
+   - 0–5s: fade in
+   - 5–45s: visible
+   - 45–50s: fade out
+*/
+@keyframes fadeZen {
+  0%   { opacity: 0; }
+  2.5% { opacity: 1; }   
+  22.5% { opacity: 1; } 
+  25% { opacity: 0; }
+  100% { opacity: 0; }
 }
 
-.col{
+/* ===========================
+   GLASS CARDS + TEXT
+   =========================== */
+
+.glass-card {
   flex: 1;
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 24px;
+  padding: 1.8rem 2rem;
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.08);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-sizing: border-box;
+}
+
+.journal-card h1,
+.stressor-card h2 {
+  margin: 0 0 0.6rem;
+  font-size: 1.3rem;
+}
+
+.subtext {
+  margin: 0 0 1.3rem;
+  font-size: 0.9rem;
+  color: #c092b9;
+}
+
+/* ===========================
+   JOURNAL AREA + BUTTON
+   =========================== */
+
+.journal-form textarea {
+  width: 100%;
+  min-height: 180px;
+  resize: vertical;
+  padding: 0.8rem 1rem;
+  border-radius: 14px;
+  border: 1px solid #e1c5e0;
+  font-family: inherit;
+  font-size: 0.95rem;
+  box-sizing: border-box;
+  color: #814f77;
+}
+
+.journal-form textarea::placeholder {
+  color: #c9a5c4;
+}
+
+.form-footer {
+  margin-top: 0.8rem;
+  text-align: right;
+}
+
+.primary-btn {
+  padding: 0.55rem 1.4rem;
+  border-radius: 999px;
+  border: none;
+  background: #de9bcc;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.18);
+  transition: 0.2s ease;
+}
+
+.primary-btn:hover {
+  background: #ffd7f7;
+  color: #a45493;
+  transform: translateY(-1px);
+}
+
+/* ===========================
+   STRESSOR LIST + PIE CHART
+   =========================== */
+
+.stressor-list {
+  list-style: none;
+  margin: 0 0 1.4rem;
+  padding: 0;
   display: flex;
   flex-direction: column;
+  gap: 0.6rem;
 }
 
-.glass{
-  text-align:center;
-  /* inset:10% auto auto 10%; */
-  transform:translate(100%,0);
-  width:10%;
-  height:10%;
-  border-radius:50%;
-  background:rgba(255,255,255,.08);
-  border:2px solid transparent;
-  box-shadow:0 0 0 2px rgba(255,255,255,.6),0 16px 32px rgba(0,0,0,.12);
-  backdrop-filter:url(#frosted);-webkit-backdrop-filter:url(#frosted);
-  /* display:grid; */
-  place-items:center;
-  cursor:pointer;
-  outline:0;
-  padding:1%;
+.stressor-list li {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-size: 0.9rem;
+}
+
+.stressor-list span {
+  min-width: 80px;
+  text-align: left;
+}
+
+.stressor-list progress {
+  flex: 1;
+}
+
+.chart-wrapper {
+  width: 100%;
+  max-width: 260px;
+  margin: 0 auto;
+}
+
+.chart-caption {
+  margin-top: 0.6rem;
+  font-size: 0.8rem;
+  color: #c092b9;
+  text-align: center;
+}
+
+/* ===========================
+   IMAGES FOR THE TALK FILE
+   =========================== */
+
+.img1 {
+    background-image: url('/static/res/talk/ivan-stepanov-dSDBi2SjWrA-unsplash.jpg');
+    animation-delay: 2s;
+}
+
+.img2 {
+    background-image: url('/static/res/talk/johnnathan-tshibangu-BIbsOnzKbM0-unsplash.jpg');
+    animation-delay: 12s;
+}
+
+.img3 {
+    background-image: url('/static/res/talk/nirajan-dhakal-WhZTCXud5Xc-unsplash.jpg');
+    animation-delay: 24s;
+}
+
+.img4 {
+    background-image: url('/static/res/talk/tresor-kande-bJxchFaMYdc-unsplash.jpg');
+    animation-delay: 36s;
+}
+.img5 {
+  background-image: url('/static/res/talk/triras-manandhar-NsRzD-Wj2ow-unsplash.jpg');
+  animation-delay: 48s;
+  background-position: center top;
+}
+
+/*
+Top part section here
+*/
+
+.talk-header-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0.7rem 2rem;
+  box-sizing: border-box;
+
+  display: flex;
+  justify-content: space-between;  
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.talk-status {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #b382b6;
+}
+
+.talk-quote-bubble {
+  padding: 0.6rem 1rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  font-size: 0.85rem;
+  color: #a471a7;
+  min-height: 2.1rem;
+  display: flex;
+  align-items: center;
+  max-width: 360px;
+}
+
+#quote-text {
+  transition: opacity 0.6s ease;
+}
+
+/* Stack on small screens */
+@media (max-width: 700px) {
+  .talk-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .talk-quote-bubble {
+    max-width: 100%;
+  }
+}
+
+.talk-header {
+  width: 100%;
+  padding: 0.8rem 2rem;
+  background: rgba(255, 255, 255, 0.65);  /* soft translucent white */
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+
+/* Ensure main content sits BELOW the fixed header */
+.talk-main {
+  margin-top: 6rem !important; /* push content down so it doesn’t overlap */
+}
+
+
+/*
+Adding this for the results page
+*/
+
+.result-main {
+    max-width: 1100px;
+    margin: 7rem auto 3rem;
+    padding: 0 2rem;
+    display: flex;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+.result-card {
+    max-width: 600px;
+    text-align: center;
+}
+
+.analysis-text {
+    margin-top: 1.5rem;
+    font-size: 1rem;
+    color: #8a588e;
+}
+
+.back-btn {
+    display: inline-block;
+    margin-top: 2rem;
+    padding: 0.6rem 1.3rem;
+    border-radius: 999px;
+
+    background: rgba(255,255,255,0.8);
+    backdrop-filter: blur(10px);
+    color: #a4699d;
+    text-decoration: none;
+    font-weight: 600;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+.back-btn:hover {
+    background: #ffe6fa;
+    color: #8d3b85;
 }
 
 /* .glass::before,
