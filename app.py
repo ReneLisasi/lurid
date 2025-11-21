@@ -4,7 +4,6 @@ import os
 
 app = Flask(__name__)
 
-# --- their model setup (keep this) ---
 generator = init_model()
 
 PROMPT_TEMPLATE_PATH = os.path.join(
@@ -37,10 +36,8 @@ def talk():
 
 @app.route('/send_message', methods=['POST'])
 def send_message():
-    # your textarea is named "message" in talk.html
     user_message = request.form.get("message", "").strip()
 
-    # if empty, just return them to the talk page with an error
     if not user_message:
         return render_template(
             "talk.html",
@@ -50,18 +47,13 @@ def send_message():
             show_stressors=False
         )
 
-    # use their infer() pipeline
     response_text, stressors = infer(user_message, generator, PROMPT_TEMPLATE_PATH)
 
-    # OPTION: show results on a separate results.html page
-    # You can pass stressor data to the chart via Jinja/JS
     return render_template(
         "results.html",
         response_text=response_text,
-        stressors=stressors,
-        analysis_text="Here’s how your emotions are showing up based on what you wrote."
+        stressors=stressors
     )
-
 
 if __name__ == '__main__':
     app.run(debug=True)

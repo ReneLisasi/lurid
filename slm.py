@@ -5,7 +5,8 @@ import json
 from transformers import StoppingCriteria, StoppingCriteriaList
 import torch
 
-MODEL_NAME = "Qwen/Qwen2.5-0.5B-Instruct"
+#MODEL_NAME = "Qwen/Qwen2.5-0.5B-Instruct"
+MODEL_NAME = "HuggingFaceTB/SmolLM2-1.7B"
 
 #load slm
 def init_model():
@@ -14,9 +15,12 @@ def init_model():
         model=MODEL_NAME, 
         tokenizer=MODEL_NAME,
         dtype="auto",
-        device_map="auto",
-        #trust_remote_code=True,
+        #device_map="auto",
+        trust_remote_code=True,
+        device = 0
     )
+    print(torch.version.cuda)
+
     return generator
 
 def read_file(filepath):

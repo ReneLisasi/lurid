@@ -216,7 +216,6 @@ nav a {
   }
 }
 
-/* Ensure main content sits BELOW the fixed header */
 .talk-main {
   max-width: 1100px;
   margin: 6rem auto 3rem;  
@@ -259,12 +258,7 @@ nav a {
   filter: brightness(0.8) blur(1px);        
 }
 
-/* One full animation is 200s.
-   Each slide "owns" 50s of that:
-   - 0–5s: fade in
-   - 5–45s: visible
-   - 45–50s: fade out
-*/
+
 @keyframes fadeZen {
   0%   { opacity: 0; }
   2.5% { opacity: 1; }   
@@ -483,9 +477,9 @@ Top part section here
   gap: 2rem;
 }
 
-/* Ensure main content sits BELOW the fixed header */
+
 .talk-main {
-  margin-top: 6rem !important; /* push content down so it doesn’t overlap */
+  margin-top: 6rem !important; 
 }
 
 

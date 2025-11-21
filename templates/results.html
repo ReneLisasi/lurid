@@ -5,15 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Emotional Breakdown</title>
 
-    <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 
-<body>
+<body class="talk-body">
+    <div class="zen-slideshow">
+        <div class="zen-image img1"></div>
+        <div class="zen-image img2"></div>
+        <div class="zen-image img3"></div>
+        <div class="zen-image img4"></div>
+        <div class="zen-image img5"></div>
+    </div>
 
-    <!-- header for the results page -->
     <header class="talk-header">
         <div class="talk-status">
             Here’s what we found from your message.
@@ -23,18 +27,59 @@
     <main class="result-main">
         <section class="glass-card result-card">
 
-            <!-- your bar graph -->
             <canvas id="resultsChart" width="400" height="300"></canvas>
 
-            <!-- explanation text -->
+            {% if stressors %}
+                <h2 style="margin-top:1.5rem; font-size:1.1rem;">Your current stressors</h2>
+                <p class="subtext">We’ll keep track of where your energy is going.</p>
+
+                <ul class="stressor-list">
+                    {% for s in stressors %}
+                        <li>
+                            <span>{{ s.name }}</span>
+                            <progress value="{{ s.progress }}" max="100"></progress>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
             <p class="analysis-text">
-                {{ analysis_text }}
+                {{ response_text }}
             </p>
 
-            <!-- back button -->
             <a href="{{ url_for('talk') }}" class="back-btn">Back to writing</a>
 
         </section>
     </main>
+
+    <script>
+        let stressData = JSON.parse(`{{ stressors | tojson | safe }}`);
+
+        if (stressData && stressData.length > 0) {
+            const labels = stressData.map(s => s.name);
+            const values = stressData.map(s => s.stress_level || s.progress || 0);
+
+            const ctx = document.getElementById('resultsChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Stress level',
+                        data: values,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 5
+                        }
+                    }
+                }
+            });
+        }
+    </script>
 </body>
 </html>

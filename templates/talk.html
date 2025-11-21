@@ -4,14 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>lurid – Talking</title>
-    <!--Have to add pie chart here -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 
 <body class="talk-body">
+
     <!-- ZEN BACKGROUND SLIDESHOW -->
     <div class="zen-slideshow">
         <div class="zen-image img1"></div>
@@ -21,53 +19,35 @@
         <div class="zen-image img5"></div>
     </div>
 
-    <!-- SINGLE top header -->
+    <!-- top header -->
     <header class="talk-header">
         <div class="talk-status">
             You’re talking to Lurid right now.
         </div>
     </header>
 
-    <!-- floating big quote bubble near bottom -->
+    <!-- floating bottom quote -->
     <div class="talk-quote-bottom">
         <span id="quote-text">“I wish you saw yourself, the way I see you.”</span>
     </div>
 
     <!-- main content -->
     <main class="talk-main">
-        <!-- LEFT: journaling card -->
         <section class="glass-card journal-card">
             <h1>What’s on your mind today?</h1>
+
+            {% if message %}
+                <p style="color:#b178b5; font-size:0.9rem; margin-bottom:0.8rem;">
+                    {{ message }}
+                </p>
+            {% endif %}
+
             <form action="{{ url_for('send_message') }}" method="post" class="journal-form">
                 <textarea name="message" placeholder="How do you feel today.."></textarea>
                 <div class="form-footer">
                     <button type="submit" class="primary-btn">Send</button>
                 </div>
             </form>
-        </section>
-
-        <!-- RIGHT: stressor list + pie chart -->
-        <section class="glass-card stressor-card {% if not show_stressors %}hidden-stressors{% endif %}">
-            <h2>Your current stressors</h2>
-            <p class="subtext">We’ll keep track of where your energy is going.</p>
-
-            <ul class="stressor-list">
-                <li>
-                    <span>Stressor 1</span>
-                    <progress value="60" max="100"></progress>
-                </li>
-                <li>
-                    <span>Stressor 2</span>
-                    <progress value="40" max="100"></progress>
-                </li>
-            </ul>
-
-            <div class="chart-wrapper">
-                <canvas id="stressPie"></canvas>
-            </div>
-            <p class="chart-caption">
-                Each slice shows how much space each stressor is taking up right now.
-            </p>
         </section>
     </main>
 </body>
